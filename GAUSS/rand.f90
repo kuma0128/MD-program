@@ -1,4 +1,4 @@
-! BOx-Muller法のGauss型乱数発生
+! Box-Muller法のGauss型乱数発生
 module sub
   implicit none
 contains
@@ -29,10 +29,6 @@ end module sub
 program main
   use sub
   implicit none
-  ! n:試行回数
-  ! Nbin:ヒストグラムの壜の数
-  ! w：壜の幅
-  ! L(-Nbin:Nbin) :ヒストグラム
   integer,parameter :: n=1000000,Nbin=200
   real(8),parameter :: W=0.02d0
   integer,dimension(-Nbin:Nbin) :: L
@@ -40,8 +36,6 @@ program main
   integer,dimension(2) :: ISEED=(/80,1001 /)
   integer :: i,j,fo=10
 
-  !x : サンプルの値
-  ! dis :分散　,ave=平均
   real(8) :: x,ave,dis
   open(fo,file='output.d')
   L=0
@@ -62,12 +56,11 @@ program main
   ave=ave/dble(n)
   dis=dis/dble(n)-ave**2
 
-  !ヒストグラムの標準出力への書き出し。
   do  j=-nbin,nbin
     write(fo,*) dble(j)*w,L(J)
   enddo
-  close(fo)
   write(fo,*) '#ave,dis=',ave,dis
+  close(fo)
 end program main
 
 
